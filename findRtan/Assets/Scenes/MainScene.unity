@@ -239,7 +239,7 @@ MonoBehaviour:
   endTxt: {fileID: 902430581}
   flip: {fileID: 8300000, guid: bc2eee4484d2d32499c0d1737eedf4e3, type: 3}
   audioSource: {fileID: 106787250}
-  stageLevel: 2
+  stageLevel: 1
   scoreTxt: {fileID: 1963212374}
   countTxt: {fileID: 1582799741}
   bestScoreTxt: {fileID: 133867854}
@@ -543,7 +543,7 @@ Animator:
   m_GameObject: {fileID: 254493663}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: edbfa18310e8b164bac1474c725ef101, type: 2}
+  m_Controller: {fileID: 9100000, guid: 301a59b962f21404280a43328f3b3d1b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
