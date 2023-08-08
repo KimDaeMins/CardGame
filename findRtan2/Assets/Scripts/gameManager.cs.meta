@@ -3,7 +3,21 @@ guid: 37279f3d0b92eee4db3ba6cb8c9dc658
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timeTxt: {instanceID: 0}
+  - card: {instanceID: 0}
+  - firstCard: {instanceID: 0}
+  - secondCard: {instanceID: 0}
+  - endTxt: {instanceID: 0}
+  - flip: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - scoreTxt: {instanceID: 0}
+  - countTxt: {instanceID: 0}
+  - bestScoreTxt: {instanceID: 0}
+  - anim: {instanceID: 0}
+  - clearTxt: {instanceID: 0}
+  - endPanel: {instanceID: 0}
+  - timeMinus: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

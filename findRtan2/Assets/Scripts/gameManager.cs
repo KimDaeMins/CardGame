@@ -13,6 +13,7 @@ public class gameManager : MonoBehaviour
     public GameObject firstCard;
     public GameObject secondCard;
     public GameObject endTxt;
+    public GameObject teamName;
 
     ResourceManager _resource = new ResourceManager();
     public static ResourceManager Resource { get { return I._resource; } }
@@ -213,7 +214,7 @@ public class gameManager : MonoBehaviour
 
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
-            
+            GameObject name = Instantiate(teamName);
 
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
             if (cardsLeft == 2)

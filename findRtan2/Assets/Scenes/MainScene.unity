@@ -250,6 +250,7 @@ MonoBehaviour:
   anim: {fileID: 254493667}
   clearTxt: {fileID: 1417203514}
   endPanel: {fileID: 1225882419}
+  timeMinus: {fileID: 4268610892311277489, guid: c2c267c379fc63741b7b024559d5b600, type: 3}
   allMiddleSetting: 0
   waitTime: 0.5
   middlePoint: {x: 0, y: 0, z: 0}
