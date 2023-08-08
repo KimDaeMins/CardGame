@@ -16,7 +16,20 @@ public class gameManager : MonoBehaviour
 
     public AudioClip flip;
     public AudioSource audioSource;
+    public int stageLevel = 1;
+    public Text scoreTxt;
+    public Text countTxt;
+    public Text bestScoreTxt;
+    public float score; // 
+    public int count; //카드를 클릭하면 ++
+    public float bestScore;
+    public Animator anim;
+    public GameObject clearTxt;
+    public GameObject endPanel;
 
+
+    public float[] cards1 = { 3, 1.7f, 1.7f, 2.6f, 1.2f, 6 };
+    public float[] cards2 = { 3, 1.7f, 1.7f, 2.0f, 3.0f, 12 };
 
     void Awake()
     {
@@ -27,39 +40,74 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1.0f;
+        time = 30f;
+        anim = timeTxt.GetComponent<Animator>();
 
-        int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
-        rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();     //OrderBy(a, b) = 정렬하겠다. a를 b순서로         ToArray() = 리스트화 하겠다.;
-        for (int i = 0; i < 16; i++)
+        if (stageLevel == 1) {
+            int[] cards = { 0, 0, 1, 1, 2, 2 };
+            cards = cards.OrderBy(ContextMenuItemAttribute => Random.Range(-1.0f, 1.0f)).ToArray();  //OrderBy(a, b) = 정렬하겠다. a를 b순서로         ToArray() = 리스트화 하겠다.;
+
+            for (int i = 0; i < (stageLevel * 6); i++)
+            {
+                GameObject newCard = Instantiate(card);
+                newCard.transform.parent = GameObject.Find("Cards").transform;
+                float x = (i % 3) * 1.7f - 1.7f;
+                float y = (i / 3) * 2.6f - 1.2f;
+                newCard.transform.position = new Vector3(x, y, 0);
+
+                string cardName = "rtan" + cards[i].ToString();
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(cardName);
+
+            }
+        }
+
+
+        else if (stageLevel == 2)
         {
 
+            int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
+            cards = cards.OrderBy(ContextMenuItemAttribute => Random.Range(-1.0f, 1.0f)).ToArray();
 
-            GameObject newCard = Instantiate(card);
-            //newCard 를 유니티의 cards 안으로 옮길것
-            newCard.transform.parent = GameObject.Find("Cards").transform;
+            for (int i = 0; i < 12; i++)
+            {
+                GameObject newCard = Instantiate(card);
+                newCard.transform.parent = GameObject.Find("Cards").transform;
+                float x = (i % 3) * 1.7f - 1.7f;
+                float y = (i / 3) * 2.0f - 3.0f;
+                newCard.transform.position = new Vector3(x, y, 0);
 
-            float x = (i / 4) * 1.4f - 2.1f;
-            float y = (i % 4) * 1.4f - 3.0f;
-            newCard.transform.position = new Vector3(x, y, 0);
+                string cardName = "rtan" + cards[i].ToString();
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(cardName);
 
-            string rtanName = "rtan" + rtans[i].ToString();
-            newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
-
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         timeTxt.text = time.ToString("N2");
 
-        if (time > 30.0f)
+
+        if (time < 0.0f)
         {
-            time = 30.0f;
-            Invoke("GameEnd", 0.1f);
+            time = 0.0f;
+            Invoke("GameEnd", 0f);
+        }
+
+        if (time < 5.0f)
+        {
+
+            Invoke("GameClear", 0f);
+        }
+        
+        if (time < 10.0f)
+        {
+            Invoke("TimeOut", 0f);
 
         }
+        
 
     }
 
@@ -78,7 +126,7 @@ public class gameManager : MonoBehaviour
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
             if (cardsLeft == 2)
             {
-                Invoke("GameEnd", 0.1f);
+                Invoke("GameClear", 0.1f);
 
             }
         }
@@ -93,11 +141,64 @@ public class gameManager : MonoBehaviour
         secondCard = null;
     }
 
-    void GameEnd()
+    void GameEnd() // 게임오버(클리어는 따로)
     {
         Time.timeScale = 0f;
+        score = 0;
+        anim.SetBool("isTimeOut", true);
+
+        endPanel.SetActive(true);
         endTxt.SetActive(true);
+
+
     }
+
+    void GameClear()
+    {
+        Time.timeScale = 0f;
+
+        score = (time * 2) + (40 - count);
+        anim.SetBool("isTimeOut", true);
+
+
+        if (PlayerPrefs.GetFloat("bestScore") > 0.0f)
+        {
+            if (PlayerPrefs.GetFloat("bestScore") < score)
+            {
+                PlayerPrefs.SetFloat("bestScore", score);
+                
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("bestScore", score);
+
+        }
+        bestScore = PlayerPrefs.GetFloat("bestScore");
+        anim.SetBool("isTimeOut", true);
+
+        bestScoreTxt.text = bestScore.ToString("N0");
+        scoreTxt.text = score.ToString("N0");
+        countTxt.text = count.ToString();
+        endPanel.SetActive(true);
+        clearTxt.SetActive(true);
+    }
+
+    
+    void TimeOut()
+    {
+        
+        anim.SetBool("isTimeOut", true);
+        
+        
+    }
+
+    void Retry()
+    {
+
+        
+    }
+    
 
 
 }
