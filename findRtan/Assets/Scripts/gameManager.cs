@@ -68,7 +68,7 @@ public class gameManager : MonoBehaviour
         angleGap = 360.0f / stageInfo[5];
         for (int i = 0 ; i < stageInfo[5] ; i += 2)
         {
-            rTans.Add(i); rTans.Add(i);
+            rTans.Add(i / 2); rTans.Add(i / 2);
             angles.Add(angleGap * i);
             angles.Add(angleGap * i + angleGap);
         }
