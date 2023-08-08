@@ -239,7 +239,11 @@ MonoBehaviour:
   secondCard: {fileID: 0}
   endTxt: {fileID: 902430581}
   flip: {fileID: 8300000, guid: bc2eee4484d2d32499c0d1737eedf4e3, type: 3}
+<<<<<<< HEAD
   setting: {fileID: 0}
+=======
+  setting: {fileID: 8300000, guid: 78a9fdaeb369fe2429346c3666c7fc93, type: 3}
+>>>>>>> origin/main
   audioSource: {fileID: 106787250}
   stageLevel: 2
   scoreTxt: {fileID: 1963212374}
