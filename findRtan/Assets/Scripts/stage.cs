@@ -31,8 +31,8 @@ public class stage : MonoBehaviour
     {
         if(true)
         {
-            GameObject stage = gameManager.I.GetComponent<gameManager>().stages[gameManager.I.GetComponent<gameManager>().stageLevel];
-            stage.SetActive(false);
+            //GameObject stage = gameManager.I.GetComponent<gameManager>().stages[gameManager.I.GetComponent<gameManager>().stageLevel];
+            //stage.SetActive(false);
         }
     }
 
