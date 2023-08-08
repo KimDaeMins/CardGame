@@ -100,6 +100,7 @@ public class card : MonoBehaviour
                 {
                     isMiddleSetting = true;
                     rotationSpeed += Random.Range(-90.0f , 90.0f);
+                    gameManager.I.PlayPookSound();
                 }
             }
 
@@ -148,6 +149,7 @@ public class card : MonoBehaviour
 
     public void closeCardInvoke()
     {
+        audioSource.PlayOneShot(flip);
         anim.SetBool("isOpen", false);
         //transform.Find("back").gameObject.SetActive(true);
         //transform.Find("front").gameObject.SetActive(false);

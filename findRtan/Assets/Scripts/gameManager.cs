@@ -19,6 +19,7 @@ public class gameManager : MonoBehaviour
 
 
     public AudioClip flip;
+    public AudioClip setting;
     public AudioSource audioSource;
     public int stageLevel = 1;
     public Text scoreTxt;
@@ -139,6 +140,7 @@ public class gameManager : MonoBehaviour
             waitTime -= Time.deltaTime;
             if (waitTime < 0)
             {
+                audioSource.PlayOneShot(setting);
                 cards[index].Setting = true;
                 index++;
                 waitTime = 0.1f;
@@ -199,6 +201,11 @@ public class gameManager : MonoBehaviour
         }
 
 
+    }
+
+    public void PlayPookSound()
+    {
+        audioSource.PlayOneShot(setting);
     }
 
 
