@@ -14,6 +14,10 @@ public class gameManager : MonoBehaviour
     public GameObject secondCard;
     public GameObject endTxt;
 
+    ResourceManager _resource = new ResourceManager();
+    public static ResourceManager Resource { get { return I._resource; } }
+
+
     public AudioClip flip;
     public AudioSource audioSource;
     public int stageLevel = 1;
@@ -28,8 +32,19 @@ public class gameManager : MonoBehaviour
     public GameObject endPanel;
 
 
-    public float[] cards1 = { 3, 1.7f, 1.7f, 2.6f, 1.2f, 6 };
-    public float[] cards2 = { 3, 1.7f, 1.7f, 2.0f, 3.0f, 12 };
+    public bool allMiddleSetting = false;
+    List<card> cards = new List<card>();
+    int index = 0;
+    public float waitTime = 0.5f;
+    int settingLevel = 4;
+    public Vector3 middlePoint;
+    float angleGap;
+    List<float> angles = new List<float>();
+    bool mainCardSetting = false;
+    int cardsCount = 0;
+    bool checking = false;
+    List<int> rTans = new List<int>();
+    float[] stageInfo;
 
     void Awake()
     {
@@ -44,72 +59,148 @@ public class gameManager : MonoBehaviour
         anim = timeTxt.GetComponent<Animator>();
 
         if (stageLevel == 1) {
-            int[] cards = { 0, 0, 1, 1, 2, 2 };
-            cards = cards.OrderBy(ContextMenuItemAttribute => Random.Range(-1.0f, 1.0f)).ToArray();  //OrderBy(a, b) = 정렬하겠다. a를 b순서로         ToArray() = 리스트화 하겠다.;
-
-            for (int i = 0; i < (stageLevel * 6); i++)
-            {
-                GameObject newCard = Instantiate(card);
-                newCard.transform.parent = GameObject.Find("Cards").transform;
-                float x = (i % 3) * 1.7f - 1.7f;
-                float y = (i / 3) * 2.6f - 1.2f;
-                newCard.transform.position = new Vector3(x, y, 0);
-
-                string cardName = "rtan" + cards[i].ToString();
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(cardName);
-
-            }
+            stageInfo = new float[]{ 3, 1.7f, 1.7f, 2.6f, 1.2f, 6 };
         }
-
-
         else if (stageLevel == 2)
         {
+            stageInfo = new float[] { 3 , 1.7f , 1.7f , 2.0f , 3.0f , 12 };
+        }
+        angleGap = 360.0f / stageInfo[5];
+        for (int i = 0 ; i < stageInfo[5] ; i += 2)
+        {
+            rTans.Add(i); rTans.Add(i);
+            angles.Add(angleGap * i);
+            angles.Add(angleGap * i + angleGap);
+        }
+        for (int i = 0 ; i < rTans.Count ; ++i)
+        {
+            int j = Random.Range(i , rTans.Count);
 
-            int[] cards = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
-            cards = cards.OrderBy(ContextMenuItemAttribute => Random.Range(-1.0f, 1.0f)).ToArray();
+            int temp = rTans[i];
+            rTans[i] = rTans[j];
+            rTans[j] = temp;
 
-            for (int i = 0; i < 12; i++)
-            {
-                GameObject newCard = Instantiate(card);
-                newCard.transform.parent = GameObject.Find("Cards").transform;
-                float x = (i % 3) * 1.7f - 1.7f;
-                float y = (i / 3) * 2.0f - 3.0f;
-                newCard.transform.position = new Vector3(x, y, 0);
+            int k = Random.Range(i , rTans.Count);
 
-                string cardName = "rtan" + cards[i].ToString();
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(cardName);
-
-            }
+            float temp2 = angles[i];
+            angles[i] = angles[k];
+            angles[k] = temp2;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        time -= Time.deltaTime;
-        timeTxt.text = time.ToString("N2");
 
-
-        if (time < 0.0f)
+        if (settingLevel == 0)
         {
-            time = 0.0f;
-            Invoke("GameEnd", 0f);
+            if (!checking && secondCard != null && secondCard.GetComponent<card>().mode == 2)
+            {
+                checking = true;
+                isMatched();
+            }
+            if (secondCard == null)
+                checking = false;
+
+            time -= Time.deltaTime;
+            timeTxt.text = time.ToString("N2");
+
+
+            if (time < 0.0f)
+            {
+                time = 0.0f;
+                Invoke("GameEnd" , 0f);
+            }
+
+            if (time < 5.0f)
+            {
+
+                Invoke("GameClear" , 0f);
+            }
+
+            if (time < 10.0f)
+            {
+                Invoke("TimeOut" , 0f);
+
+            }
+
+        }
+        else if (settingLevel == 1)
+        {
+            if (cards[0].isSetting)
+            {
+                waitTime -= Time.deltaTime;
+                if (waitTime < 0.0f)
+                    settingLevel = 0;
+            }
+        }
+        else if (settingLevel == 2)
+        {
+            waitTime -= Time.deltaTime;
+            if (waitTime < 0)
+            {
+                cards[index].Setting = true;
+                index++;
+                waitTime = 0.1f;
+                if (cards.Count == index)
+                {
+                    settingLevel = 1;
+                    cards.Reverse();
+                    waitTime = 0.3f;
+                }
+            }
+        }
+        else if (settingLevel == 3)
+        {
+            waitTime -= Time.deltaTime;
+            if (waitTime < 0)
+            {
+                foreach (card a in cards)
+                {
+                    a.SpinStart = true;
+                }
+                waitTime = cards[0].maxSpinTime + 0.5f;
+                settingLevel = 2;
+            }
+        }
+        else if (settingLevel == 4)
+        {
+            waitTime -= Time.deltaTime;
+            if (waitTime < 0)
+            {
+                GameObject go = Resource.Instantiate("card");
+                go.transform.parent = GameObject.Find("Cards").transform;
+                cards.Add(go.GetComponent<card>());
+
+                //public float[] cards1 = { 3 , 1.7f , 1.7f , 2.6f , 1.2f , 6 };
+                float x = ( cardsCount % (int)stageInfo[0] ) * stageInfo[1] - stageInfo[2];
+                float y = ( cardsCount / (int)stageInfo[0] ) * stageInfo[3] - stageInfo[4];
+
+                go.GetComponent<card>().myDestination = new Vector3(x , y , 0);
+                go.transform.position = Quaternion.AngleAxis(angles[cardsCount] , Vector3.forward) * new Vector3(10.0f , 0.0f , 0.0f);
+
+                if (!mainCardSetting)
+                {
+                    mainCardSetting = true;
+                    go.GetComponent<card>().isMainCard = true;
+                    go.transform.Find("back").GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    go.transform.Find("back").transform.Find("Canvas").GetComponent<Canvas>().sortingOrder = 3;
+                }
+                string rTanName = "rtan" + rTans[cardsCount].ToString();
+                go.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resource.Load<Sprite>($"Images/FindRTan/{rTanName}");
+                ++cardsCount;
+                waitTime = 0.1f;
+                if (cardsCount == (int)stageInfo[5])
+                {
+                    waitTime = 2.0f;
+                    settingLevel = 3;
+                }
+            }
         }
 
-        if (time < 5.0f)
-        {
-
-            Invoke("GameClear", 0f);
-        }
-        
-        if (time < 10.0f)
-        {
-            Invoke("TimeOut", 0f);
-
-        }
-        
 
     }
+
 
     public void isMatched()
     {
@@ -126,7 +217,7 @@ public class gameManager : MonoBehaviour
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
             if (cardsLeft == 2)
             {
-                Invoke("GameClear", 0.1f);
+                Invoke("GameClear", 1.0f);
 
             }
         }
@@ -136,9 +227,25 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().closeCard();
 
         }
-
-        firstCard = null;
-        secondCard = null;
+    }
+    public bool FilpInfoSetting(GameObject go)
+    {
+        if (firstCard == null)
+            firstCard = go;
+        else if (secondCard == null && firstCard != go)
+        {
+            secondCard = go;
+        }
+        else
+            return false;
+        return true;
+    }
+    public void CardReset(GameObject go)
+    {
+        if (firstCard == go)
+            firstCard = null;
+        else
+            secondCard = null;
     }
 
     void GameEnd() // 게임오버(클리어는 따로)
