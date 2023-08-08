@@ -227,6 +227,7 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().closeCard();
 
         }
+        count++;
     }
     public bool FilpInfoSetting(GameObject go)
     {

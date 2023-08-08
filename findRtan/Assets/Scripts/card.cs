@@ -20,12 +20,13 @@ public class card : MonoBehaviour
     public bool Setting { get; set; } = false;
     public int mode { get; private set; }// 0은 뒷면 1은 뒤 -> 앞 2는 앞면 3은 앞 -> 뒤
 
-
+    float openTime = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         mode = 0;
+        
     }
 
     // Update is called once per frame
@@ -50,10 +51,17 @@ public class card : MonoBehaviour
             if (transform.rotation.eulerAngles.y > 180.0f)
             {
                 mode = 2;
+                openTime = 0.0f;
                 transform.rotation = Quaternion.Euler(0.0f , 180.0f , 0.0f);
             }
             if (transform.rotation.eulerAngles.y > 90.0f)
                 transform.Find("front").gameObject.SetActive(true);
+        }
+        else if (mode == 2)
+        {
+            openTime += Time.deltaTime;
+            if (openTime > 5.0f)
+                closeCard();
         }
     }
 
