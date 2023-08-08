@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;  //중요 - 배열 섞는 기능 사용 목적
+using Unity.VisualScripting;
+
 public class gameManager : MonoBehaviour
 {
     public static gameManager I;
@@ -20,6 +22,8 @@ public class gameManager : MonoBehaviour
     public int stageLevel = 1;
     public Text scoreTxt;
     public Text countTxt;
+    public float timeLimit = 5f;
+    public Text timeLimitTxt;
     public Text bestScoreTxt;
     public float score; //
     public int count; //카드를 클릭하면 ++
@@ -175,6 +179,25 @@ public class gameManager : MonoBehaviour
                 }
             }
         }
+
+        if(firstCard != null)
+        {
+            timeLimitTxt.transform.gameObject.SetActive(true);
+            timeLimit -=Time.deltaTime;
+            timeLimitTxt.text = timeLimit.ToString("N2");
+            if(timeLimit < 0f)
+            {
+                firstCard.GetComponent<card>().closeCard();
+                timeLimit = 5f;
+
+            }
+        } else
+        {
+            timeLimitTxt.transform.gameObject.SetActive(false);
+
+            timeLimit = 5f;
+        }
+
     }
     public void PlayPookSound()
     {
