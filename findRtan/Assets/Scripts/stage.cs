@@ -12,6 +12,7 @@ public class stage : MonoBehaviour
     bool isOpen = false;
     public int myStage = 0;
 
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -29,26 +30,32 @@ public class stage : MonoBehaviour
             if (PlayerPrefs.GetInt("Stage2") == 1)
                 isOpen = true;
         }
-        transform.Find("levelTxt").GetComponent<Text>().text = "Level " + myStage.ToString();
-
+        if(myStage != 0)
+        {
+            transform.Find("levelTxt").GetComponent<Text>().text = "Level " + myStage.ToString();
+        }
         if (isOpen)
         {
             transform.Find("lock").gameObject.SetActive(false);
             transform.Find("black").gameObject.SetActive(false);
             transform.GetComponent<Button>().enabled = true;
-        }  
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void EnterStage(int level)
     {
-
-        if (level == 1)
+        if(level == 0)
+        {
+            SceneManager.LoadScene("StartScene");
+        }
+        else if (level == 1)
         {
 
             SceneManager.LoadScene("Stage1");
@@ -67,6 +74,24 @@ public class stage : MonoBehaviour
         {
             //SceneManager.LoadScene("stage3");
 
+        }
+    }
+    public void ResetBestScore(int maxLevel)
+    {
+        for (int i = 1; i <= maxLevel; i++)
+        {
+           PlayerPrefs.SetInt("bestScore" + i, 0);
+
+
+        }
+
+        if (myStage != 1)
+        {
+            
+            isOpen = false;
+            transform.Find("lock").gameObject.SetActive(true);
+            transform.Find("black").gameObject.SetActive(true);
+            transform.GetComponent<Button>().enabled = false;
         }
     }
 
