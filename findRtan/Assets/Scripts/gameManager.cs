@@ -182,23 +182,15 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        if(firstCard != null)
+        if(firstCard != null && secondCard == null)
         {
+            timeLimit = Mathf.Max(0.0f , 5.0f - firstCard.GetComponent<card>().openTime);
             timeLimitTxt.transform.gameObject.SetActive(true);
-            timeLimit -=Time.deltaTime;
             timeLimitTxt.text = timeLimit.ToString("N2");
-            if(timeLimit <= 0.0f)
-            {
-                timeLimitTxt.transform.gameObject.SetActive(false);
-                firstCard.GetComponent<card>().closeCard();
-                timeLimit = 5f;
-
-            }
-        } else
+        }
+        else
         {
             timeLimitTxt.transform.gameObject.SetActive(false);
-
-            timeLimit = 5f;
         }
 
     }
@@ -261,7 +253,7 @@ public class gameManager : MonoBehaviour
     void GameClear()
     {
         Time.timeScale = 0f;
-        score = (time * 2) + (40 - count);
+        score = Mathf.Min(100.0f, Mathf.Max(0.0f, (time * 8) + (40 - count * 2)));
         anim.SetBool("isTimeOut", true);
         if (PlayerPrefs.GetFloat("bestScore") > 0.0f)
         {
