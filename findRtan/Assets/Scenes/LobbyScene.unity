@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: isOpen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4387456758140707491, guid: 296939f3a9452a149846297fce5681e9, type: 3}
+      propertyPath: myStage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8848919043970739788, guid: 296939f3a9452a149846297fce5681e9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -486,6 +490,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stage2
       objectReference: {fileID: 0}
+    - target: {fileID: 4387456758140707491, guid: 296939f3a9452a149846297fce5681e9, type: 3}
+      propertyPath: myStage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8848919043970739788, guid: 296939f3a9452a149846297fce5681e9, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -689,6 +697,10 @@ PrefabInstance:
     - target: {fileID: 3743955363091214165, guid: 296939f3a9452a149846297fce5681e9, type: 3}
       propertyPath: m_Name
       value: stage3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387456758140707491, guid: 296939f3a9452a149846297fce5681e9, type: 3}
+      propertyPath: myStage
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8848919043970739788, guid: 296939f3a9452a149846297fce5681e9, type: 3}
       propertyPath: m_RootOrder

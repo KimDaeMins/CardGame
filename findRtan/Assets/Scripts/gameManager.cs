@@ -53,35 +53,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1.0f;
-        time = 30f;
-        anim = timeTxt.GetComponent<Animator>();
-        if (stageLevel == 1)
-        {
-            stageInfo = new float[] { 3, 1.7f, 1.7f, 2.6f, 1.2f, 6 };
-        }
-        else if (stageLevel == 2)
-        {
-            stageInfo = new float[] { 3, 1.7f, 1.7f, 2.0f, 3.0f, 12 };
-        }
-        angleGap = 360.0f / stageInfo[5];
-        for (int i = 0; i < stageInfo[5]; i += 2)
-        {
-            rTans.Add(i / 2); rTans.Add(i / 2);
-            angles.Add(angleGap * i);
-            angles.Add(angleGap * i + angleGap);
-        }
-        for (int i = 0; i < rTans.Count; ++i)
-        {
-            int j = Random.Range(i, rTans.Count);
-            int temp = rTans[i];
-            rTans[i] = rTans[j];
-            rTans[j] = temp;
-            int k = Random.Range(i, rTans.Count);
-            float temp2 = angles[i];
-            angles[i] = angles[k];
-            angles[k] = temp2;
-        }
+        LevelSetting();
     }
     // Update is called once per frame
     void Update()
@@ -194,6 +166,38 @@ public class gameManager : MonoBehaviour
         }
 
     }
+    void LevelSetting()
+    {
+        Time.timeScale = 1.0f;
+        time = 30f;
+        anim = timeTxt.GetComponent<Animator>();
+        if (stageLevel == 1)
+        {
+            stageInfo = new float[] { 3 , 1.7f , 1.7f , 2.6f , 1.2f , 6 };
+        }
+        else if (stageLevel == 2)
+        {
+            stageInfo = new float[] { 3 , 1.7f , 1.7f , 2.0f , 3.0f , 12 };
+        }
+        angleGap = 360.0f / stageInfo[5];
+        for (int i = 0 ; i < stageInfo[5] ; i += 2)
+        {
+            rTans.Add(i / 2); rTans.Add(i / 2);
+            angles.Add(angleGap * i);
+            angles.Add(angleGap * i + angleGap);
+        }
+        for (int i = 0 ; i < rTans.Count ; ++i)
+        {
+            int j = Random.Range(i , rTans.Count);
+            int temp = rTans[i];
+            rTans[i] = rTans[j];
+            rTans[j] = temp;
+            int k = Random.Range(i , rTans.Count);
+            float temp2 = angles[i];
+            angles[i] = angles[k];
+            angles[k] = temp2;
+        }
+    }
     public void PlayPookSound()
     {
         audioSource.PlayOneShot(setting);
@@ -255,17 +259,6 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0f;
         score = Mathf.Min(100.0f, Mathf.Max(0.0f, (time * 8) + (40 - count * 2)));
         anim.SetBool("isTimeOut", true);
-        if (PlayerPrefs.GetFloat("bestScore") > 0.0f)
-        {
-            if (PlayerPrefs.GetFloat("bestScore") < score)
-            {
-                PlayerPrefs.SetFloat("bestScore", score);
-            }
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("bestScore", score);
-        }
         bestScore = PlayerPrefs.GetFloat("bestScore");
         anim.SetBool("isTimeOut", true);
         bestScoreTxt.text = bestScore.ToString("N0");
@@ -273,6 +266,25 @@ public class gameManager : MonoBehaviour
         countTxt.text = count.ToString();
         endPanel.SetActive(true);
         clearTxt.SetActive(true);
+        string key = "bestScore" + stageLevel;
+        {//클리어 했을 시
+            if (PlayerPrefs.GetFloat(key) > 0.0f)
+            {
+                if (PlayerPrefs.GetFloat(key) < score)
+                {
+                    PlayerPrefs.SetFloat(key , score);
+                }
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(key , score);
+            }
+
+            if (stageLevel == 1)
+                PlayerPrefs.SetInt("Stage1" , 1);
+            else if (stageLevel == 2)
+                PlayerPrefs.SetInt("Stage2" , 1);
+        }
     }
     void TimeOut()
     {
