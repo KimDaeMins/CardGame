@@ -9,19 +9,34 @@ using UnityEngine.SceneManagement;
 public class stage : MonoBehaviour
 {
 
-    public bool isOpen = false;
-
+    bool isOpen = false;
+    public int myStage = 0;
 
     // Start is called before the first frame update
     private void Start()
     {
+        if (myStage == 1)
+        {
+            isOpen = true;
+        }
+        else if (myStage == 2)
+        {
+            if (PlayerPrefs.GetInt("Stage1") == 1)
+                isOpen = true;
+        }
+        else if(myStage == 3)
+        {
+            if (PlayerPrefs.GetInt("Stage2") == 1)
+                isOpen = true;
+        }
+        transform.Find("levelTxt").GetComponent<Text>().text = "Level " + myStage.ToString();
+
         if (isOpen)
         {
             transform.Find("lock").gameObject.SetActive(false);
             transform.Find("black").gameObject.SetActive(false);
             transform.GetComponent<Button>().enabled = true;
-        }
-
+        }  
     }
 
     // Update is called once per frame
@@ -36,14 +51,14 @@ public class stage : MonoBehaviour
         if (level == 1)
         {
 
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("Stage1");
             //SceneManager.LoadScene("stage1");
             Debug.Log("stage1");
 
         }
         else if (level == 2)
         {
-            SceneManager.LoadScene("stage2");
+            SceneManager.LoadScene("Stage2");
             Debug.Log("stage2");
 
 

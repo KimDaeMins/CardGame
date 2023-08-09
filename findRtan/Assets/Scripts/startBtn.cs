@@ -19,6 +19,16 @@ public class startBtn : MonoBehaviour
 
     public void GameStart()
     {
+        ResetPrefs(2);
         SceneManager.LoadScene("LobbyScene");
+    }
+
+    public void ResetPrefs(int maxLevel)
+    {
+        for(int i = 1; i <= maxLevel; i++)
+        {
+            PlayerPrefs.SetInt("Stage" + i , 0);
+            PlayerPrefs.SetInt("bestScore" + i, 0);
+        }
     }
 }
