@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+
 
 public class audioManager : MonoBehaviour
 {
-    public AudioClip bgMusic;
-    public AudioSource audioSource;
+    public AudioMixer masterMixer;
+    public Slider audioSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +20,17 @@ public class audioManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AudioControl()
+    {
+        float sound = audioSlider.value;
+        if(sound == -40f)
+        {
+            masterMixer.SetFloat("BGM", -80);
+        } else
+        {
+            masterMixer.SetFloat("BGM", sound);
+        }
     }
 }
