@@ -18,7 +18,7 @@ public class card : MonoBehaviour
     public bool SpinStart { get; set; } = false;
     public bool Setting { get; set; } = false;
     public int mode { get; private set; }// 0은 뒷면 1은 뒤 -> 앞 2는 앞면 3은 앞 -> 뒤
-    float openTime = 0.0f;
+    public float openTime { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +56,7 @@ public class card : MonoBehaviour
         {
             openTime += Time.deltaTime;
             if (openTime > 5.0f)
-                closeCard();
+                closeCardInvoke();
         }
     }
     public void OpenCard()
