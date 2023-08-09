@@ -15,8 +15,10 @@ public class teamName : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         text = GetComponent<TextMeshPro>();
         alpha = text.color;
+        text.text = gameManager.I. firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name; ;
         Invoke("DestroyObject", destroytime);
     }
 
@@ -25,7 +27,6 @@ public class teamName : MonoBehaviour
     {
         time += Time.deltaTime;
        transform.localScale = new Vector3(1.0f + scalespeed*time, 1.0f +  scalespeed*time,1);
-        Debug.Log(transform.localScale);
         transform.Translate(new Vector3(0, movespeed * Time.deltaTime, 0));
         alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaspeed);
         text.color = alpha;

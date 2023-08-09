@@ -7,6 +7,7 @@ public class card : MonoBehaviour
     public AudioClip flip;
     public AudioSource audioSource;
     public Vector3 myDestination;
+    public int nametype; // 카드번호
     Vector3 middlePoint;
     float spinTime = 0.0f;
     public float rotationSpeed;

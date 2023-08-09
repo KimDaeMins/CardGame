@@ -31,6 +31,8 @@ public class gameManager : MonoBehaviour
     public Animator anim;
     public GameObject clearTxt;
     public GameObject endPanel;
+    public GameObject timeMinus;
+    public GameObject teamName;
     public bool allMiddleSetting = false;
     List<card> cards = new List<card>();
     int index = 0;
@@ -214,6 +216,7 @@ public class gameManager : MonoBehaviour
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
+            Instantiate(teamName);
             if (cardsLeft == 2)
             {
                 Invoke("GameClear", 1.0f);
@@ -223,6 +226,8 @@ public class gameManager : MonoBehaviour
         {
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
+            time -= 1;
+            Instantiate(timeMinus);
         }
         count++;
     }

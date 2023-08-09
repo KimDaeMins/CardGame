@@ -253,6 +253,8 @@ MonoBehaviour:
   anim: {fileID: 254493667}
   clearTxt: {fileID: 1417203514}
   endPanel: {fileID: 1225882419}
+  timeMinus: {fileID: 1971671493440117436, guid: 67c5c0c4a49b0c7408685ac77aa97403, type: 3}
+  teamName: {fileID: 7935885544926775544, guid: 3d5b2e123db1fcc4ab50cae2781ae8f1, type: 3}
   allMiddleSetting: 0
   waitTime: 0.5
   middlePoint: {x: 0, y: 0, z: 0}
