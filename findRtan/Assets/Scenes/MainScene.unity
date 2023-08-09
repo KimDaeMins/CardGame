@@ -255,6 +255,7 @@ MonoBehaviour:
   endPanel: {fileID: 1225882419}
   timeMinus: {fileID: 1971671493440117436, guid: 67c5c0c4a49b0c7408685ac77aa97403, type: 3}
   teamName: {fileID: 7935885544926775544, guid: 3d5b2e123db1fcc4ab50cae2781ae8f1, type: 3}
+  fail: {fileID: 8971984361568622537, guid: c3f991e2933348b47a65d50f04d11a68, type: 3}
   allMiddleSetting: 0
   waitTime: 0.5
   middlePoint: {x: 0, y: 0, z: 0}

@@ -33,6 +33,7 @@ public class gameManager : MonoBehaviour
     public GameObject endPanel;
     public GameObject timeMinus;
     public GameObject teamName;
+    public GameObject fail;
     public bool allMiddleSetting = false;
     List<card> cards = new List<card>();
     int index = 0;
@@ -228,6 +229,7 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().closeCard();
             time -= 1;
             Instantiate(timeMinus);
+            Instantiate(fail);
         }
         count++;
     }
