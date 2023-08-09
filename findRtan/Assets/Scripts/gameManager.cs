@@ -185,8 +185,9 @@ public class gameManager : MonoBehaviour
             timeLimitTxt.transform.gameObject.SetActive(true);
             timeLimit -=Time.deltaTime;
             timeLimitTxt.text = timeLimit.ToString("N2");
-            if(timeLimit < 0f)
+            if(timeLimit <= 0.0f)
             {
+                timeLimitTxt.transform.gameObject.SetActive(false);
                 firstCard.GetComponent<card>().closeCard();
                 timeLimit = 5f;
 

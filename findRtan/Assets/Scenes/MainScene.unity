@@ -239,10 +239,13 @@ MonoBehaviour:
   secondCard: {fileID: 0}
   endTxt: {fileID: 902430581}
   flip: {fileID: 8300000, guid: bc2eee4484d2d32499c0d1737eedf4e3, type: 3}
+  setting: {fileID: 0}
   audioSource: {fileID: 106787250}
   stageLevel: 2
   scoreTxt: {fileID: 1963212374}
   countTxt: {fileID: 1582799741}
+  timeLimit: 5
+  timeLimitTxt: {fileID: 1871806769}
   bestScoreTxt: {fileID: 133867854}
   score: 0
   count: 0
