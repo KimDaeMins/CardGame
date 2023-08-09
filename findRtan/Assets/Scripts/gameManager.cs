@@ -221,7 +221,7 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().closeCard();
             time -= 1;
             Instantiate(timeMinus);
-            //Instantiate(fail);
+            Instantiate(fail);
         }
         count++;
     }
@@ -258,7 +258,6 @@ public class gameManager : MonoBehaviour
         score = Mathf.Min(100.0f , Mathf.Max(0.0f , ( time * 8 ) + ( 40 - count * 2 )));
         anim.SetBool("isTimeOut" , true);
         anim.SetBool("isTimeOut" , true);
-        bestScoreTxt.text = bestScore.ToString("N0");
         scoreTxt.text = score.ToString("N0");
         countTxt.text = count.ToString();
         endPanel.SetActive(true);
@@ -277,6 +276,8 @@ public class gameManager : MonoBehaviour
             PlayerPrefs.SetFloat(key , score);
         }
         bestScore = PlayerPrefs.GetFloat(key);
+        bestScoreTxt.text = bestScore.ToString("N0");
+
         if (stageLevel == 1)
             PlayerPrefs.SetInt("Stage1" , 1);
         else if (stageLevel == 2)
