@@ -75,13 +75,9 @@ public class gameManager : MonoBehaviour
                 time = 0.0f;
                 Invoke("GameEnd", 0f);
             }
-            if (time < 5.0f)
-            {
-                Invoke("GameClear", 0f);
-            }
             if (time < 10.0f)
             {
-                Invoke("TimeOut", 0f);
+                Invoke("TimeOut" , 0f);
             }
         }
         else if (settingLevel == 1)
@@ -225,7 +221,7 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().closeCard();
             time -= 1;
             Instantiate(timeMinus);
-            Instantiate(fail);
+            //Instantiate(fail);
         }
         count++;
     }
@@ -259,34 +255,33 @@ public class gameManager : MonoBehaviour
     void GameClear()
     {
         Time.timeScale = 0f;
-        score = Mathf.Min(100.0f, Mathf.Max(0.0f, (time * 8) + (40 - count * 2)));
-        anim.SetBool("isTimeOut", true);
-        bestScore = PlayerPrefs.GetFloat("bestScore");
-        anim.SetBool("isTimeOut", true);
+        score = Mathf.Min(100.0f , Mathf.Max(0.0f , ( time * 8 ) + ( 40 - count * 2 )));
+        anim.SetBool("isTimeOut" , true);
+        anim.SetBool("isTimeOut" , true);
         bestScoreTxt.text = bestScore.ToString("N0");
         scoreTxt.text = score.ToString("N0");
         countTxt.text = count.ToString();
         endPanel.SetActive(true);
         clearTxt.SetActive(true);
         string key = "bestScore" + stageLevel;
-        {//클리어 했을 시
-            if (PlayerPrefs.GetFloat(key) > 0.0f)
-            {
-                if (PlayerPrefs.GetFloat(key) < score)
-                {
-                    PlayerPrefs.SetFloat(key , score);
-                }
-            }
-            else
+
+        if (PlayerPrefs.GetFloat(key) > 0.0f)
+        {
+            if (PlayerPrefs.GetFloat(key) < score)
             {
                 PlayerPrefs.SetFloat(key , score);
             }
-
-            if (stageLevel == 1)
-                PlayerPrefs.SetInt("Stage1" , 1);
-            else if (stageLevel == 2)
-                PlayerPrefs.SetInt("Stage2" , 1);
         }
+        else
+        {
+            PlayerPrefs.SetFloat(key , score);
+        }
+        bestScore = PlayerPrefs.GetFloat(key);
+        if (stageLevel == 1)
+            PlayerPrefs.SetInt("Stage1" , 1);
+        else if (stageLevel == 2)
+            PlayerPrefs.SetInt("Stage2" , 1);
+
     }
     void TimeOut()
     {

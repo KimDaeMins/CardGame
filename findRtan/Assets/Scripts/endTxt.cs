@@ -19,7 +19,7 @@ public class endTxt : MonoBehaviour
 
     public void ReGame()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Stage" + gameManager.I.stageLevel);
     }
     public void Lobby()
     {
