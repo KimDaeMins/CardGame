@@ -248,6 +248,11 @@ public class gameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         score = 0;
+        scoreTxt.text = score.ToString("N0");
+        countTxt.text = count.ToString();
+        string key = "bestScore" + stageLevel;
+        bestScore = PlayerPrefs.GetFloat(key);
+        bestScoreTxt.text = bestScore.ToString("N0");
         anim.SetBool("isTimeOut", true);
         endPanel.SetActive(true);
         endTxt.SetActive(true);
