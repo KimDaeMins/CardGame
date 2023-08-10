@@ -14,6 +14,7 @@ public class gameManager : MonoBehaviour
     public GameObject firstCard;
     public GameObject secondCard;
     public GameObject endTxt;
+    public GameObject Timelimitpanel;
     ResourceManager _resource = new ResourceManager();
     public static ResourceManager Resource { get { return I._resource; } }
     public AudioClip flip;
@@ -161,11 +162,13 @@ public class gameManager : MonoBehaviour
             timeLimit = Mathf.Max(0.0f , 5.0f - firstCard.GetComponent<card>().openTime);
             timeLimitTxt.transform.gameObject.SetActive(true);
             timeLimitTxt.text = timeLimit.ToString("N2");
+            Timelimitpanel.SetActive(true);
             IsTimelimit = true;
         }
         else
         {
             timeLimitTxt.transform.gameObject.SetActive(false);
+            Timelimitpanel.SetActive(false);
             timeLimitbar.Reset();
             IsTimelimit = false;
             
