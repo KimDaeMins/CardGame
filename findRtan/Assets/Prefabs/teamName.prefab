@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7570697909775483503}
   - component: {fileID: 6655123154288979716}
-  - component: {fileID: 8543218822842867269}
   - component: {fileID: 5799790793702982745}
+  - component: {fileID: 8543218822842867269}
   m_Layer: 0
   m_Name: teamName
   m_TagString: Untagged
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -8419901338889664665, guid: 0a47d924d31210f4697e159557e1bcd1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,6 +81,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5799790793702982745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7935885544926775544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be55de9ab5c64040b68d5a0f4ba7147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scalespeed: 0
+  text: {fileID: 0}
+  time: 0
+  movespeed: 1
+  alphaspeed: 1
+  destroytime: 2
 --- !u!114 &8543218822842867269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,16 +119,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: good!
+  m_text: "\uAC00\uB098\uB2E4\uB77C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0a47d924d31210f4697e159557e1bcd1, type: 2}
+  m_sharedMaterial: {fileID: -8419901338889664665, guid: 0a47d924d31210f4697e159557e1bcd1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190099
   m_fontColor: {r: 0.0754717, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -173,21 +191,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6655123154288979716}
   m_maskType: 0
---- !u!114 &5799790793702982745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7935885544926775544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be55de9ab5c64040b68d5a0f4ba7147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scalespeed: 0
-  text: {fileID: 0}
-  time: 0
-  movespeed: 1
-  alphaspeed: 1
-  destroytime: 2
