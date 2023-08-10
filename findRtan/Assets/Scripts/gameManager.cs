@@ -34,6 +34,8 @@ public class gameManager : MonoBehaviour
     public GameObject timeMinus;
     public GameObject teamName;
     public GameObject fail;
+    public timeLimit timeLimitbar;
+    public bool IsTimelimit = false;
     public bool allMiddleSetting = false;
     List<card> cards = new List<card>();
     int index = 0;
@@ -156,10 +158,14 @@ public class gameManager : MonoBehaviour
             timeLimit = Mathf.Max(0.0f , 5.0f - firstCard.GetComponent<card>().openTime);
             timeLimitTxt.transform.gameObject.SetActive(true);
             timeLimitTxt.text = timeLimit.ToString("N2");
+            IsTimelimit = true;
         }
         else
         {
             timeLimitTxt.transform.gameObject.SetActive(false);
+            timeLimitbar.Reset();
+            IsTimelimit = false;
+            
         }
 
     }
