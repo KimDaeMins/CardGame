@@ -117,6 +117,8 @@ public class card : MonoBehaviour
     }
     public void destroyCard()
     {
+        Vector3 pos = new Vector3(Random.Range(-2.5f , 2.5f) , Random.Range(-5.0f , 5.0f) , 0.0f);
+        gameManager.Resource.Instantiate("CFX_Firework_Trails_Gravity" , pos);
         Invoke("destroyCardInvoke", 0.3f);
     }
     public void destroyCardInvoke()
