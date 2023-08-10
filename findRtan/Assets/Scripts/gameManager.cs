@@ -145,7 +145,7 @@ public class gameManager : MonoBehaviour
                 waitTime = 0.1f;
                 if (cardsCount == (int)stageInfo[5])
                 {
-                    waitTime = 2.0f;
+                    waitTime = 0.8f;
                     settingLevel = 3;
                 }
             }
@@ -166,16 +166,18 @@ public class gameManager : MonoBehaviour
     void LevelSetting()
     {
         Time.timeScale = 1.0f;
-        time = 30f;
         anim = timeTxt.GetComponent<Animator>();
         if (stageLevel == 1)
         {
+            time = 30f;
             stageInfo = new float[] { 3 , 1.7f , 1.7f , 2.6f , 1.2f , 6 };
         }
         else if (stageLevel == 2)
         {
+            time = 45f;
             stageInfo = new float[] { 3 , 1.7f , 1.7f , 2.0f , 3.0f , 12 };
         }
+        timeTxt.text = time.ToString("N2");
         angleGap = 360.0f / stageInfo[5];
         for (int i = 0 ; i < stageInfo[5] ; i += 2)
         {
@@ -212,7 +214,7 @@ public class gameManager : MonoBehaviour
             Instantiate(teamName);
             if (cardsLeft == 2)
             {
-                Invoke("GameClear", 1.0f);
+                Invoke("GameClear", 0.33f);
             }
         }
         else
@@ -260,7 +262,11 @@ public class gameManager : MonoBehaviour
     void GameClear()
     {
         Time.timeScale = 0f;
-        score = Mathf.Min(100.0f , Mathf.Max(0.0f , ( time * 8 ) + ( 40 - count * 2 )));
+        float timeScore = Mathf.Max(50 , time * 2);
+        float countScore = Mathf.Max(0.0f, 50.0f - ( count - stageInfo[5] / 2 ) * 2.5f);
+        score = (int)( timeScore + countScore );
+        //25초부터 1초당 -2점 
+        //카드갯수 /2 번 안에 맞추면 50점 그이후론 시도횟수당 -2.5점
         anim.SetBool("isTimeOut" , true);
         anim.SetBool("isTimeOut" , true);
         scoreTxt.text = score.ToString("N0");
