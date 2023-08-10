@@ -47,6 +47,7 @@ public class gameManager : MonoBehaviour
     bool checking = false;
     List<int> rTans = new List<int>();
     float[] stageInfo;
+    bool isClear = false;
     void Awake()
     {
         I = this;
@@ -68,7 +69,9 @@ public class gameManager : MonoBehaviour
             }
             if (secondCard == null)
                 checking = false;
-            time -= Time.deltaTime;
+            if(!isClear)
+                time -= Time.deltaTime;
+
             timeTxt.text = time.ToString("N2");
             if (time < 0.0f)
             {
@@ -261,7 +264,7 @@ public class gameManager : MonoBehaviour
     }
     void GameClear()
     {
-        Time.timeScale = 0f;
+        isClear = true;
         float timeScore = Mathf.Max(50 , time * 2);
         float countScore = Mathf.Max(0.0f, 50.0f - ( count - stageInfo[5] / 2 ) * 2.5f);
         score = (int)( timeScore + countScore );
