@@ -576,6 +576,7 @@ MonoBehaviour:
   flip: {fileID: 8300000, guid: 3584fd516db99c044bc9bc6b9080e5f6, type: 3}
   audioSource: {fileID: 7752684593468975287}
   myDestination: {x: 0, y: 0, z: 0}
+  nametype: 0
   rotationSpeed: 300
   maxSpinTime: 3
   isMainCard: 0

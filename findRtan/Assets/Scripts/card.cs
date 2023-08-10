@@ -24,6 +24,7 @@ public class card : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         mode = 0;
+        maxSpinTime = 1.5f;
     }
     // Update is called once per frame
     void Update()
@@ -31,7 +32,7 @@ public class card : MonoBehaviour
         InitCardSetting();
         if (mode == 3)
         {
-            transform.Rotate(0.0f, 1.8f, 0.0f);
+            transform.Rotate(0.0f, 2.8f , 0.0f);
             if (transform.rotation.eulerAngles.y < 10.0f)
             {
                 mode = 0;
@@ -42,7 +43,7 @@ public class card : MonoBehaviour
         }
         else if (mode == 1)
         {
-            transform.Rotate(0.0f, 1.8f, 0.0f);
+            transform.Rotate(0.0f, 2.8f, 0.0f);
             if (transform.rotation.eulerAngles.y > 180.0f)
             {
                 mode = 2;
@@ -84,11 +85,11 @@ public class card : MonoBehaviour
         {
             if (!isMiddleSetting)
             {
-                transform.position = Vector3.MoveTowards(transform.position, middlePoint, 0.1f);
+                transform.position = Vector3.MoveTowards(transform.position, middlePoint, 0.2f);
                 if ((middlePoint == transform.position))
                 {
                     isMiddleSetting = true;
-                    rotationSpeed += Random.Range(-90.0f, 90.0f);
+                    rotationSpeed += Random.Range(-180.0f, 180.0f);
                     gameManager.I.PlayPookSound();
                 }
             }
@@ -105,7 +106,7 @@ public class card : MonoBehaviour
             }
             if (Setting)
             {
-                transform.position = Vector3.MoveTowards(transform.position, myDestination, 0.1f);
+                transform.position = Vector3.MoveTowards(transform.position, myDestination, 0.2f);
                 if (transform.position == myDestination)
                 {
                     anim.SetBool("isSetting", true);
