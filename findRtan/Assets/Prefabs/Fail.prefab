@@ -101,3 +101,4 @@ MonoBehaviour:
   upSizeTime: 0.6
   scalespeed: 0
   destroytime: 0.7
+  alphaspeed: 10
