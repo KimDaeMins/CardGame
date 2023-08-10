@@ -47,9 +47,10 @@ public class gameManager : MonoBehaviour
     bool mainCardSetting = false;
     int cardsCount = 0;
     bool checking = false;
-    List<int> rTans = new List<int>();
     float[] stageInfo;
     bool isClear = false;
+    List<string>[] playerSprites = {new List<string>(), new List<string>() , new List<string>() };
+    List<string> names = new List<string>();
     void Awake()
     {
         I = this;
@@ -144,7 +145,7 @@ public class gameManager : MonoBehaviour
                     go.transform.Find("back").GetComponent<SpriteRenderer>().sortingOrder = 3;
                     go.transform.Find("back").transform.Find("Canvas").GetComponent<Canvas>().sortingOrder = 3;
                 }
-                string rTanName = "rtan" + rTans[cardsCount].ToString();
+                string rTanName = names[cardsCount];
                 go.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resource.Load<Sprite>($"Images/FindRTan/{rTanName}");
                 ++cardsCount;
                 waitTime = 0.1f;
@@ -172,6 +173,26 @@ public class gameManager : MonoBehaviour
         }
 
     }
+    void InputName(int level)
+    {
+        playerSprites[0].Add("°­ÀÇµè´Â ¹Î¿­");
+        playerSprites[1].Add("Ä«Æ®¿¡ ÀÖ´Â ÀçÈÆ");
+        playerSprites[2].Add("ÀÚ½À ´ë¹Î");
+        playerSprites[0].Add("»çÁøÂï´Â ¹Î¿­");
+        playerSprites[1].Add("¼úÃëÇÑ ÀçÈÆ");
+        playerSprites[2].Add("³ª¹«´Ãº¸ ´ë¹Î");
+
+        for (int i = 0 ; i < level ; ++i)
+        {
+            for (int j = 0 ; j < 3 ; ++j)
+            {
+                int index = Random.Range(0 , playerSprites[j].Count);
+                names.Add(playerSprites[j][index]);
+                names.Add(playerSprites[j][index]);
+                playerSprites[j].RemoveAt(index);
+            } 
+        }
+    }
     void LevelSetting()
     {
         Time.timeScale = 1.0f;
@@ -186,21 +207,23 @@ public class gameManager : MonoBehaviour
             time = 45f;
             stageInfo = new float[] { 3 , 1.7f , 1.7f , 2.0f , 3.0f , 12 };
         }
+        InputName(stageLevel);
         timeTxt.text = time.ToString("N2");
         angleGap = 360.0f / stageInfo[5];
+
         for (int i = 0 ; i < stageInfo[5] ; i += 2)
         {
-            rTans.Add(i / 2); rTans.Add(i / 2);
             angles.Add(angleGap * i);
             angles.Add(angleGap * i + angleGap);
         }
-        for (int i = 0 ; i < rTans.Count ; ++i)
+        for (int i = 0 ; i < names.Count ; ++i)
         {
-            int j = Random.Range(i , rTans.Count);
-            int temp = rTans[i];
-            rTans[i] = rTans[j];
-            rTans[j] = temp;
-            int k = Random.Range(i , rTans.Count);
+            int j = Random.Range(i , names.Count);
+            string temp = names[i];
+            names[i] = names[j];
+            names[j] = temp;
+
+            int k = Random.Range(i , names.Count);
             float temp2 = angles[i];
             angles[i] = angles[k];
             angles[k] = temp2;
