@@ -117,6 +117,10 @@ public class card : MonoBehaviour
     }
     public void destroyCard()
     {
+        Vector3 pos = new Vector3(Random.Range(-2.5f , 2.5f) , Random.Range(-5.0f , 5.0f) , 0.0f);
+        GameObject go = gameManager.Resource.Instantiate("CFX_Firework_Trails_Gravity" , pos);
+        ParticleSystem.MainModule main = go.GetComponent<ParticleSystem>().main;
+        main.startColor = new Color((float)Random.Range(0 , 2) , (float)Random.Range(0 , 2) , (float)Random.Range(0 , 2) , (140 + ( (float)Random.Range(0 , 2) * 60.0f ) )/255.0f);
         Invoke("destroyCardInvoke", 0.3f);
     }
     public void destroyCardInvoke()
